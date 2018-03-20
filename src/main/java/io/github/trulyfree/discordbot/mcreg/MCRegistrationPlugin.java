@@ -1,6 +1,7 @@
 package io.github.trulyfree.discordbot.mcreg;
 
 import co.templex.oauth.Querier;
+import co.templex.oauth.SuccessfulOAuthResponse;
 import com.google.gson.JsonSyntaxException;
 import de.btobastian.javacord.DiscordAPI;
 import de.btobastian.javacord.listener.Listener;
@@ -21,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
 @FieldDefaults(makeFinal = true,
@@ -68,6 +70,10 @@ public class MCRegistrationPlugin implements ConfiguredBotPlugin<Config> {
 
     @Override
     public void shutdown() {
+    }
+
+    public Map<String, SuccessfulOAuthResponse> getRegistry() {
+        return Collections.unmodifiableMap(getConfig().getRegistry());
     }
 
     @NonNull

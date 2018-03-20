@@ -1,0 +1,18 @@
+group 'io.github.trulyfree'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'http://repo.bastian-oppermann.de/' }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile group: 'com.github.TemplexMC', name: 'MCOauthQuery', version: '57efe5d048'
+    compile group: 'com.github.TrulyFree', name: 'DiscordBot.Command', version: 'c7fe856152'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}

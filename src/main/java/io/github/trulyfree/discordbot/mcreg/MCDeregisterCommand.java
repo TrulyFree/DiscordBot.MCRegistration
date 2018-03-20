@@ -65,17 +65,17 @@ public class MCDeregisterCommand implements Command {
     @Override
     public String onHelpRequest(@Nullable final Message message) {
         if (message == null) {
-            return "Authenticates you via Minecraft across all instances of this bot. Login to srv.mc-oauth.net on Minecraft to fetch a validation token.";
+            return "Deregisters your Minecraft account from this Discord account.";
         } else {
             message.reply(
                     "",
-                    new EmbedBuilder().setTitle("MC Register Syntax").addField(
+                    new EmbedBuilder().setTitle("MC Deregister Syntax").addField(
                             "Info",
                             onHelpRequest(null),
                             true
                     ).addField(
                             "Syntax",
-                            "mcreg <token>",
+                            "mcdereg",
                             true
                     )
             );

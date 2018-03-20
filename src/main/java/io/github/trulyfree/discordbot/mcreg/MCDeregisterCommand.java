@@ -29,7 +29,7 @@ public class MCDeregisterCommand implements Command {
         } else {
             message.reply(String.format(
                     "Didn't find an oauth entry for user %s.",
-                    message.getAuthor().getId()
+                    message.getAuthor().getMentionTag()
             ));
         }
     }

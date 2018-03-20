@@ -51,6 +51,15 @@ public class MCRegistrationPlugin implements ConfiguredBotPlugin<Config> {
             throw new IllegalArgumentException("ConfigurationPlugin must be defined and accessible for CommandPlugin to run.");
         }
         config = temp.get();
+        if (!pluginManager.findPlugin(
+                CommandPlugin.class,
+                commandPlugin -> {
+                    commandPlugin.registerCommand(new MCDeregisterCommand(this));
+                    commandPlugin.registerCommand(new MCRegisterCommand(this));
+                }
+        )) {
+            throw new IllegalArgumentException("CommandPlugin must be defined and accessible for CommandPlugin to run.");
+        }
     }
 
     @Override

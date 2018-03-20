@@ -4,11 +4,17 @@ import de.btobastian.javacord.entities.message.Message;
 import de.btobastian.javacord.entities.message.embed.EmbedBuilder;
 import io.github.trulyfree.discordbot.cmd.Command;
 import io.github.trulyfree.plugins.annotation.Plugin;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
 import org.intellij.lang.annotations.Language;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+@AllArgsConstructor
+@FieldDefaults(makeFinal = true,
+               level = AccessLevel.PRIVATE)
 public class MCDeregisterCommand implements Command {
     MCRegistrationPlugin mcRegistrationPlugin;
 

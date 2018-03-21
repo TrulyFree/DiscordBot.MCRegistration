@@ -26,6 +26,13 @@ public class MCDeregisterCommand implements Command {
                     "Successfully deregistered user %s.",
                     message.getAuthor().getMentionTag()
             ));
+            mcRegistrationPlugin.getRegistrationListeners().forEach(listener -> {
+                try {
+                    listener.onDeregister(message.getAuthor());
+                } catch (Throwable throwable) {
+                    throwable.printStackTrace();
+                }
+            });
         } else {
             message.reply(String.format(
                     "Didn't find an oauth entry for user %s.",

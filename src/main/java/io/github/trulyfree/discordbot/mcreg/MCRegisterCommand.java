@@ -58,6 +58,16 @@ public class MCRegisterCommand implements Command {
                                             message.getAuthor().getMentionTag(),
                                             ((SuccessfulOAuthResponse) response).getUsername()
                                     ));
+                                    mcRegistrationPlugin.getRegistrationListeners().forEach(listener -> {
+                                        try {
+                                            listener.onRegister(
+                                                    message.getAuthor(),
+                                                    (SuccessfulOAuthResponse) response
+                                            );
+                                        } catch (Throwable throwable) {
+                                            throwable.printStackTrace();
+                                        }
+                                    });
                                     return (SuccessfulOAuthResponse) response;
                                 } else {
                                     message.reply(String.format(

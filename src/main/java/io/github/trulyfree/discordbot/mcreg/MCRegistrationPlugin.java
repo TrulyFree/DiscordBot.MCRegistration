@@ -23,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 
 @FieldDefaults(makeFinal = true,
@@ -37,6 +38,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class MCRegistrationPlugin implements ConfiguredBotPlugin<Config> {
     @Getter Querier querier = new Querier();
     Config config;
+    List<RegistrationListener> registrationListeners;
 
     private MCRegistrationPlugin(final PluginManager<? super BotPlugin> pluginManager) {
         AtomicReference<Config> temp = new AtomicReference<>();
@@ -62,6 +64,7 @@ public class MCRegistrationPlugin implements ConfiguredBotPlugin<Config> {
         )) {
             throw new IllegalArgumentException("CommandPlugin must be defined and accessible for CommandPlugin to run.");
         }
+        registrationListeners = new CopyOnWriteArrayList<>();
     }
 
     @Override
@@ -74,6 +77,12 @@ public class MCRegistrationPlugin implements ConfiguredBotPlugin<Config> {
 
     public Map<String, SuccessfulOAuthResponse> getRegistry() {
         return Collections.unmodifiableMap(getConfig().getRegistry());
+    }
+
+    @NonNull
+    @NotNull
+    public List<RegistrationListener> getRegistrationListeners() {
+        return Collections.unmodifiableList(registrationListeners);
     }
 
     @NonNull

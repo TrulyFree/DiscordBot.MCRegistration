@@ -85,6 +85,10 @@ public class MCRegistrationPlugin implements ConfiguredBotPlugin<Config> {
         return Collections.unmodifiableList(registrationListeners);
     }
 
+    public boolean addRegistrationListener(RegistrationListener listener) {
+        return registrationListeners.add(listener);
+    }
+
     @NonNull
     @NotNull
     @Override

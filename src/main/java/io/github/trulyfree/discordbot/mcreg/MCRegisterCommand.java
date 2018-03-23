@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
+import java.util.Collection;
 
 @AllArgsConstructor
 @FieldDefaults(makeFinal = true,
@@ -40,12 +41,13 @@ public class MCRegisterCommand implements Command {
                 ));
             }
         } else {
+            Collection<SuccessfulOAuthResponse> oAuthResponses = mcRegistrationPlugin.getConfig().getRegistry().values();
             mcRegistrationPlugin.getConfig().getRegistry().compute(
                     message.getAuthor().getId(),
                     (id, existing) -> {
                         if (existing != null) {
                             message.reply(String.format(
-                                    "Already have an entry for user %s.",
+                                    "Already have an entry for Discord user %s.",
                                     message.getAuthor().getMentionTag()
                             ));
                             return existing;
@@ -53,6 +55,15 @@ public class MCRegisterCommand implements Command {
                             try {
                                 OAuthResponse response = mcRegistrationPlugin.getQuerier().query(s);
                                 if (response instanceof SuccessfulOAuthResponse) {
+                                    for (SuccessfulOAuthResponse successfulOAuthResponse : oAuthResponses) {
+                                        if (successfulOAuthResponse.getUuid().equals(((SuccessfulOAuthResponse) response).getUuid())) {
+                                            message.reply(String.format(
+                                                    "Already registered Minecraft user %s",
+                                                    ((SuccessfulOAuthResponse) response).getUsername()
+                                            ));
+                                            return null;
+                                        }
+                                    }
                                     message.reply(String.format(
                                             "Successfully registered %s as %s.",
                                             message.getAuthor().getMentionTag(),

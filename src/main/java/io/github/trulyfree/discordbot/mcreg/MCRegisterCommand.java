@@ -58,7 +58,7 @@ public class MCRegisterCommand implements Command {
                                     for (SuccessfulOAuthResponse successfulOAuthResponse : oAuthResponses) {
                                         if (successfulOAuthResponse.getUuid().equals(((SuccessfulOAuthResponse) response).getUuid())) {
                                             message.reply(String.format(
-                                                    "Already registered Minecraft user %s",
+                                                    "Already registered Minecraft user %s.",
                                                     ((SuccessfulOAuthResponse) response).getUsername()
                                             ));
                                             return null;
